@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manipulação de Arrays</title>
+    <style>
+        .container {
+            margin: 20px;
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-field">
+            <label for="inputNome">Nome:</label>
+            <input type="text" id="inputNome">
+        </div>
+        <div class="input-field">
+            <label for="inputProfissao">Profissão:</label>
+            <input type="text" id="inputProfissao">
+        </div>
+        <button onclick="adicionar()">Adicionar</button>
+        <button onclick="remover()">Remover</button>
+        <div class="result">
+            <h4>Registros:</h4>
+            <ul id="registros"></ul>
+        </div>
+    </div>
+
+    <script>
+        var nomes = [];
+        var profissoes = [];
+
+        function adicionar() {
+            var nome = document.getElementById("inputNome").value;
+            var profissao = document.getElementById("inputProfissao").value;
+
+            nomes.push(nome);
+            profissoes.push(profissao);
+
+            exibirRegistros();
+
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputProfissao").value = "";
+        }
+
+        function remover() {
+            var nome = document.getElementById("inputNome").value;
+            var indice = nomes.indexOf(nome);
+
+            if (indice !== -1) {
+                nomes.splice(indice, 1);
+                profissoes.splice(indice, 1);
+
+                exibirRegistros();
+
+                console.log("Nome removido: " + nome);
+                console.log("Profissão removida: " + profissoes[indice]);
+            } else {
+                console.log("Nome não encontrado.");
+            }
+
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputProfissao").value = "";
+        }
+
+        function exibirRegistros() {
+            var registros = document.getElementById("registros");
+            registros.innerHTML = "";
+
+            for (var i = 0; i < nomes.length; i++) {
+                var registro = document.createElement("li");
+                registro.textContent = nomes[i] + " - " + profissoes[i];
+                registros.appendChild(registro);
+            }
+        }
+    </script>
+</body>
+</html>
